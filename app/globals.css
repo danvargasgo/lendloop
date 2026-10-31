@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #fbfbf8;
+  --panel: #ffffff;
+  --ink: #16211d;
+  --muted: #5b6962;
+  --line: #dce2db;
+  --soft: #edf2ed;
+  --accent: #1f6f54;
+  --accent-ink: #ffffff;
+  --danger: #b3261e;
+  --warn: #8a5a00;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #0e1512;
+    --panel: #141d19;
+    --ink: #e7eee9;
+    --muted: #98a89f;
+    --line: #26332d;
+    --soft: #1a2620;
+    --accent: #4cb48a;
+    --accent-ink: #07130e;
+    --danger: #f08a82;
+    --warn: #e0b04f;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-soft: var(--soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

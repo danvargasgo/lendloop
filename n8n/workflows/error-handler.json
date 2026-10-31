@@ -1,0 +1,78 @@
+{
+  "id": "lendloop-error-handler",
+  "name": "LendLoop: error handler",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "72048473-513d-5170-a33b-623e445bf235",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Any failed LendLoop run lands here. The structured line below is what to alert on.\nconst e = $json;\nconst out = {\n  msg: 'LendLoop automation FAILED',\n  workflow: e.workflow && e.workflow.name,\n  executionId: e.execution && e.execution.id,\n  node: e.execution && e.execution.lastNodeExecuted,\n  error: e.execution && e.execution.error && e.execution.error.message,\n  url: e.execution && e.execution.url,\n};\nconsole.error(JSON.stringify(out));\nreturn [{ json: out }];\n"
+      },
+      "id": "50dde51a-c0d8-5961-a5f1-2e9b5ba3af81",
+      "name": "Format failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.ALERT_WEBHOOK_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: 'LendLoop automation failed: ' + $json.workflow + ' (' + $json.error + ') ' + $json.url }) }}",
+        "options": {}
+      },
+      "id": "f0d3472f-05e7-57ff-b788-4621bdc6b673",
+      "name": "Send alert (optional)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        100
+      ],
+      "disabled": true
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format failure": {
+      "main": [
+        [
+          {
+            "node": "Send alert (optional)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

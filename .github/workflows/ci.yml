@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - name: The workflow exports are valid JSON and carry no secrets
+        run: |
+          for f in n8n/workflows/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))"; done
+          if grep -rEi "(secret|password|token)\"?\s*[:=]\s*\"[A-Za-z0-9+/=_-]{16,}" n8n/workflows; then echo "A workflow export contains something that looks like a secret"; exit 1; fi
+      - name: The compose file is valid
+        run: |
+          cp .env.n8n.example .env.n8n
+          docker compose config -q

@@ -1,0 +1,38 @@
+{
+  "name": "lendloop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run lint && npm test",
+    "convex": "convex dev",
+    "n8n:up": "docker compose up -d",
+    "n8n:import": "docker compose exec n8n n8n import:workflow --separate --input=/workflows",
+    "n8n:test-event": "node --env-file=.env.n8n scripts/send-test-event.mjs"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.9.23",
+    "convex": "^1.49.0",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "convex-test": "^0.0.66",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3.2.7"
+  }
+}
