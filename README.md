@@ -179,10 +179,11 @@ Verified:
 - Convex itself dispatched a real signed event and n8n accepted it.
 - The overdue workflow ran against a local Convex deployment, wrote its result back, and a second run created no duplicate.
 - A signed but malformed event fails loudly with a 500.
+- By hand in a browser, against a hosted Convex development deployment and a Clerk test application: sign up and sign in with two accounts, create listings, request, approve and return a loan, the admin views, and a request notification delivered to the local n8n through a tunnel.
 
 Not verified:
-- **Clerk sign-in and the signed-in screens in a browser.** I had no Clerk instance to sign in with, so the dashboard is type checked, linted and built but I have not clicked through it. The access rules behind it are tested.
-- A hosted Convex deployment, and delivery through a real email or chat provider.
+- Delivery through a real email or chat provider. The workflows mock send.
+- A production deployment. `PRODUCTION.md` lists what I would change first.
 - n8n's own deduplication. I tried to make the notification workflow skip repeated keys with n8n's static data. It worked in isolated tests but not in the real workflow, so I removed it. Duplicate protection lives in Convex, where it is tested.
 
 ## Repo map
