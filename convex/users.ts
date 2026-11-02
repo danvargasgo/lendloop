@@ -11,8 +11,8 @@ export const store = mutation({
     const identity = await ctx.auth.getUserIdentity();
     if (identity === null) fail("UNAUTHENTICATED", "Sign in to continue.");
 
-    const name = (identity.name ?? identity.givenName ?? "Neighbor").slice(0, 80);
     const email = (identity.email ?? "").slice(0, 200);
+    const name = (identity.name ?? identity.givenName ?? (email.split("@")[0] || "Neighbor")).slice(0, 80);
 
     const existing = await ctx.db
       .query("users")
