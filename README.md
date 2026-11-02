@@ -85,7 +85,7 @@ docker compose restart n8n
 
 Open http://localhost:5678 once to create the n8n owner account. Runs show up under Executions.
 
-> **Cloud Convex cannot reach localhost.** A hosted Convex deployment calls `N8N_WEBHOOK_URL` from the internet, so with a hosted deployment expose n8n through a tunnel (and set `WEBHOOK_URL` and `N8N_WEBHOOK_URL` to the public address). The alternative is a local Convex deployment, where everything stays on your machine. I ran my checks that way (`CONVEX_AGENT_MODE=anonymous npx convex dev`). Inside Docker, n8n reaches a local Convex at `http://host.docker.internal:3211`, which is the default for `CONVEX_SITE_URL`.
+> **Cloud Convex cannot reach localhost.** A hosted Convex deployment calls `N8N_WEBHOOK_URL` from the internet, so with a hosted deployment expose n8n through a tunnel (and set `WEBHOOK_URL` and `N8N_WEBHOOK_URL` to the public address). The alternative is a local Convex deployment, where everything stays on your machine (`CONVEX_AGENT_MODE=anonymous npx convex dev`). Inside Docker, n8n reaches a local Convex at `http://host.docker.internal:3211`, which is the default for `CONVEX_SITE_URL`.
 
 **5. Run the app and create the first admin**
 
@@ -169,22 +169,13 @@ npm run check    # typecheck, lint and tests
 npm test         # 34 tests
 ```
 
-The tests run the real Convex functions in memory with `convex-test`. They cover the public list, anonymous access, every role boundary, listing and loan rules, overlap handling, the signed delivery to n8n (headers, payload keys and signature), retries and the final failed state, an event that is not sent twice, and the HTTP endpoints (bad, stale and replayed signatures, idempotent write-backs, malformed input). I checked that they can fail by deleting one authorization check and watching a test break.
+The tests run the real Convex functions in memory with `convex-test`. They cover the public list, anonymous access, every role boundary, listing and loan rules, overlap handling, the signed delivery to n8n (headers, payload keys and signature), retries and the final failed state, an event that is not sent twice, and the HTTP endpoints (bad, stale and replayed signatures, idempotent write-backs, malformed input).
 
-## What I verified, and what I did not
+## Known limits
 
-Verified:
-- All 34 tests, typecheck and lint pass, and the production build succeeds.
-- On a clean n8n 2.45.7 install with the exported workflows: a signed event is accepted, and a tampered, stale or unsigned one is refused with 401.
-- Convex itself dispatched a real signed event and n8n accepted it.
-- The overdue workflow ran against a local Convex deployment, wrote its result back, and a second run created no duplicate.
-- A signed but malformed event fails loudly with a 500.
-- By hand in a browser, against a hosted Convex development deployment and a Clerk test application: sign up and sign in with two accounts, create listings, request, approve and return a loan, the admin views, and a request notification delivered to the local n8n through a tunnel.
-
-Not verified:
-- Delivery through a real email or chat provider. The workflows mock send.
-- A production deployment. `PRODUCTION.md` lists what I would change first.
-- n8n's own deduplication. I tried to make the notification workflow skip repeated keys with n8n's static data. It worked in isolated tests but not in the real workflow, so I removed it. Duplicate protection lives in Convex, where it is tested.
+- Notifications are mock sent. The workflows build the message and stop before an email or chat node, so connecting a provider is the one step left.
+- Duplicate protection lives in Convex, where each event has an idempotency key and is tested. The n8n workflows do not deduplicate on their own.
+- This is a development setup. `PRODUCTION.md` lists what changes before running it for real.
 
 ## Repo map
 
