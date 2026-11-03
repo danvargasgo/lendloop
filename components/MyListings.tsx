@@ -18,22 +18,22 @@ export default function MyListings() {
   const [editing, setEditing] = useState<Id<"tools"> | null>(null);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold">List a tool</h2>
+        <h2 className="label">List a tool</h2>
         <ToolForm submitLabel="List tool" />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold">Your listings</h2>
+        <h2 className="label">Your listings</h2>
         {tools === undefined ? (
           <p className="text-sm text-muted">Loading…</p>
         ) : tools.length === 0 ? (
           <Empty>You have not listed anything yet.</Empty>
         ) : (
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col border-b border-line">
             {tools.map((tool) => (
-              <li key={tool.id} className="flex flex-col gap-3 rounded-lg border border-line bg-panel p-4">
+              <li key={tool.id} className="flex flex-col gap-3 border-t border-line py-5">
                 {editing === tool.id ? (
                   <ToolForm toolId={tool.id} initial={tool} submitLabel="Save" onDone={() => setEditing(null)} />
                 ) : (
@@ -67,7 +67,7 @@ function Row({ tool, onEdit }: { tool: { id: Id<"tools">; name: string; category
     <>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="font-semibold">{tool.name}</h3>
+          <h3 className="text-base font-medium">{tool.name}</h3>
           {tool.description && <p className="text-sm text-muted">{tool.description}</p>}
         </div>
         <Badge tone={tool.available ? "good" : "warn"}>{tool.available ? "Available" : "On loan"}</Badge>
@@ -139,7 +139,7 @@ function ToolForm({
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-3 rounded-lg border border-line bg-panel p-4">
+    <form onSubmit={submit} className="flex flex-col gap-4 border border-line p-5">
       <div className="grid gap-3 sm:grid-cols-3">
         <Field label="Name">
           <input required maxLength={80} className={inputClass} value={draft.name} onChange={(e) => set("name", e.target.value)} />

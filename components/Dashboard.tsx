@@ -48,21 +48,21 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-10">
       <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-semibold tracking-tight">Hi, {me.name.split(" ")[0]}</h1>
+        <h1 className="text-[clamp(34px,6vw,56px)] font-medium leading-none tracking-[-0.03em]">Hi, {me.name.split(" ")[0]}</h1>
         {isAdmin && <Badge tone="warn">Admin</Badge>}
         {me.trustedLender && <Badge tone="good">Trusted lender</Badge>}
       </div>
 
-      <div role="tablist" aria-label="Dashboard sections" className="flex flex-wrap gap-1 border-b border-line">
+      <div role="tablist" aria-label="Dashboard sections" className="flex flex-wrap gap-x-6 gap-y-1 border-b border-line">
         {tabs.map((t) => (
           <button
             key={t.id}
             role="tab"
             aria-selected={tab === t.id}
             onClick={() => setTab(t.id)}
-            className={`-mb-px border-b-2 px-3 py-2 text-sm font-medium ${tab === t.id ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"}`}
+            className={`-mb-px border-b px-0 py-3 text-[11px] font-medium uppercase tracking-[0.14em] ${tab === t.id ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"}`}
           >
             {t.label}
           </button>

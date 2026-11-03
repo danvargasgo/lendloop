@@ -47,10 +47,10 @@ function LoanCard({
   children?: React.ReactNode;
 }) {
   return (
-    <li className="flex flex-col gap-2 rounded-lg border border-line bg-panel p-4">
+    <li className="flex flex-col gap-2 border-t border-line py-5">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="font-semibold">{toolName}</h3>
+          <h3 className="text-base font-medium">{toolName}</h3>
           <p className="text-sm text-muted">
             {counterpartLabel} {counterpart} · {startDate} to {endDate}
           </p>
@@ -91,7 +91,7 @@ export function MyRequests() {
   return (
     <div className="flex flex-col gap-3">
       <ErrorNote message={error} />
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col border-b border-line">
         {loans.map((loan) => (
           <LoanCard
             key={loan.id}
@@ -129,7 +129,7 @@ export function IncomingRequests() {
   return (
     <div className="flex flex-col gap-3">
       <ErrorNote message={error} />
-      <ul className="flex flex-col gap-3">
+      <ul className="flex flex-col border-b border-line">
         {loans.map((loan) => (
           <LoanCard
             key={loan.id}

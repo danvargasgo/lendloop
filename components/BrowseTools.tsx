@@ -34,7 +34,7 @@ export default function BrowseTools({ isAdmin }: { isAdmin: boolean }) {
       ) : tools.length === 0 ? (
         <Empty>No tools here yet.</Empty>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2">
+        <ul className="flex flex-col border-b border-line">
           {tools.map((tool) => (
             <ToolCard key={tool.id} tool={tool} isAdmin={isAdmin} />
           ))}
@@ -62,10 +62,10 @@ function ToolCard({ tool, isAdmin }: { tool: Tool; isAdmin: boolean }) {
   }
 
   return (
-    <li className="flex flex-col gap-3 rounded-lg border border-line bg-panel p-4">
+    <li className="flex flex-col gap-3 border-t border-line py-5">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h3 className="font-semibold">{tool.name}</h3>
+          <h3 className="text-base font-medium">{tool.name}</h3>
           <p className="text-sm text-muted">
             {tool.isMine ? "Yours" : `Lent by ${tool.ownerName}`}
             {tool.ownerTrusted && " · trusted lender"}
@@ -125,7 +125,7 @@ function RequestForm({ toolId, onDone }: { toolId: Id<"tools">; onDone: () => vo
   }
 
   return (
-    <form onSubmit={submit} className="flex flex-col gap-3 rounded-md bg-soft p-3">
+    <form onSubmit={submit} className="flex flex-col gap-3 bg-soft p-4">
       <div className="grid grid-cols-2 gap-3">
         <Field label="From">
           <input type="date" required min={todayIso()} className={inputClass} value={startDate} onChange={(e) => setStart(e.target.value)} />

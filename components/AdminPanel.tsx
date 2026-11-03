@@ -28,13 +28,13 @@ export default function AdminPanel() {
       <ErrorNote message={error} />
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold">Lenders</h2>
+        <h2 className="label">Lenders</h2>
         {users === undefined ? (
           <p className="text-sm text-muted">Loading…</p>
         ) : (
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col border-b border-line">
             {users.map((u) => (
-              <li key={u.id} className="flex items-center justify-between gap-3 rounded-lg border border-line bg-panel px-4 py-2">
+              <li key={u.id} className="flex items-center justify-between gap-3 border-t border-line py-3">
                 <span className="flex items-center gap-2">
                   {u.name}
                   {u.role === "admin" && <Badge tone="warn">admin</Badge>}
@@ -50,22 +50,22 @@ export default function AdminPanel() {
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold">All loans</h2>
+        <h2 className="label">All loans</h2>
         {loans === undefined ? (
           <p className="text-sm text-muted">Loading…</p>
         ) : loans.length === 0 ? (
           <Empty>No loans yet.</Empty>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-line">
+          <div className="overflow-x-auto border-y border-line">
             <table className="w-full min-w-[40rem] text-left text-sm">
-              <thead className="bg-soft text-muted">
+              <thead>
                 <tr>
-                  <th className="px-3 py-2 font-medium">Tool</th>
-                  <th className="px-3 py-2 font-medium">Lender</th>
-                  <th className="px-3 py-2 font-medium">Borrower</th>
-                  <th className="px-3 py-2 font-medium">Dates</th>
-                  <th className="px-3 py-2 font-medium">Status</th>
-                  <th className="px-3 py-2 font-medium">Automation</th>
+                  <th className="label px-3 py-3 font-normal">Tool</th>
+                  <th className="label px-3 py-3 font-normal">Lender</th>
+                  <th className="label px-3 py-3 font-normal">Borrower</th>
+                  <th className="label px-3 py-3 font-normal">Dates</th>
+                  <th className="label px-3 py-3 font-normal">Status</th>
+                  <th className="label px-3 py-3 font-normal">Automation</th>
                 </tr>
               </thead>
               <tbody>

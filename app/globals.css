@@ -1,31 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #fbfbf8;
+  --paper: #ffffff;
   --panel: #ffffff;
-  --ink: #16211d;
-  --muted: #5b6962;
-  --line: #dce2db;
-  --soft: #edf2ed;
-  --accent: #1f6f54;
+  --ink: #000000;
+  --muted: #767676;
+  --line: #e4e4e4;
+  --soft: #f4f4f4;
+  --accent: #000000;
   --accent-ink: #ffffff;
-  --danger: #b3261e;
-  --warn: #8a5a00;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #0e1512;
-    --panel: #141d19;
-    --ink: #e7eee9;
-    --muted: #98a89f;
-    --line: #26332d;
-    --soft: #1a2620;
-    --accent: #4cb48a;
-    --accent-ink: #07130e;
-    --danger: #f08a82;
-    --warn: #e0b04f;
-  }
+  --danger: #d03a1c;
+  --warn: #a56d00;
+  --good: #0b8a76;
 }
 
 @theme inline {
@@ -39,16 +25,61 @@
   --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
   --color-warn: var(--warn);
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --color-good: var(--good);
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* small uppercase text used for section titles, field labels and nav */
+.label {
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* rows rise in once, and a row's top rule darkens on hover */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  animation-delay: var(--delay, 0ms);
+}
+main li {
+  animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  transition: border-color 0.3s;
+}
+main li:nth-child(2) { animation-delay: 40ms; }
+main li:nth-child(3) { animation-delay: 80ms; }
+main li:nth-child(4) { animation-delay: 120ms; }
+main li:nth-child(5) { animation-delay: 160ms; }
+main li:nth-child(6) { animation-delay: 200ms; }
+main li:nth-child(n + 7) { animation-delay: 240ms; }
+main ul > li:hover {
+  border-top-color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  main li {
+    animation: none;
+  }
 }
