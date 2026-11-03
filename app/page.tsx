@@ -3,13 +3,13 @@ import { Show, SignInButton } from "@clerk/nextjs";
 import Link from "next/link";
 import PublicTools from "@/components/PublicTools";
 
-const cta = "inline-block bg-accent px-4 py-3 text-[11px] font-medium uppercase tracking-[0.12em] text-accent-ink transition hover:opacity-80";
+const cta = "btn inline-block bg-accent text-accent-ink transition hover:opacity-80";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-24 pt-10">
-      <section className="flex flex-col items-start gap-8">
-        <h1 className="rise max-w-[14ch] text-[clamp(44px,9.5vw,104px)] font-medium leading-[0.98] tracking-[-0.04em] [--delay:80ms]">
+      <section className="hero flex flex-col items-start gap-8">
+        <h1 className="rise max-w-[14ch] text-[clamp(44px,9.5vw,104px)] font-bold leading-[0.98] tracking-[-0.04em] [--delay:80ms]">
           Borrow what you need. <span className="text-muted">Lend what you don&apos;t.</span>
         </h1>
         <div className="rise [--delay:180ms]">

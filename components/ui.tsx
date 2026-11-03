@@ -14,7 +14,7 @@ export function Button({ variant = "primary", className = "", ...props }: Button
   return (
     <button
       {...props}
-      className={`px-3.5 py-2 text-[11px] font-medium uppercase tracking-[0.12em] transition disabled:cursor-not-allowed disabled:opacity-40 ${variants[variant]} ${className}`}
+      className={`btn transition disabled:cursor-not-allowed disabled:opacity-40 ${variants[variant]} ${className}`}
     />
   );
 }
@@ -28,7 +28,7 @@ const tones = {
 
 export function Badge({ tone = "neutral", children }: { tone?: keyof typeof tones; children: ReactNode }) {
   return (
-    <span className={`inline-flex items-center gap-1.5 text-[11px] uppercase tracking-[0.1em] ${tones[tone]}`}>
+    <span className={`badge inline-flex items-center gap-1.5 ${tones[tone]}`}>
       <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-current" />
       {children}
     </span>
@@ -44,7 +44,7 @@ export function Field({ label, children }: { label: string; children: ReactNode 
   );
 }
 
-export const inputClass = "rounded-none border border-line bg-transparent px-2.5 py-2 text-sm text-ink focus:border-ink";
+export const inputClass = "input border border-line bg-transparent px-2.5 py-2 text-sm text-ink focus:border-ink";
 
 export function ErrorNote({ message }: { message: string | null }) {
   if (!message) return null;
@@ -56,5 +56,5 @@ export function ErrorNote({ message }: { message: string | null }) {
 }
 
 export function Empty({ children }: { children: ReactNode }) {
-  return <p className="border border-dashed border-line px-4 py-10 text-center text-sm text-muted">{children}</p>;
+  return <p className="rounded-2xl border border-dashed border-line px-4 py-10 text-center text-sm text-muted">{children}</p>;
 }

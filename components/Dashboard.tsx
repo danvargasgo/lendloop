@@ -50,7 +50,7 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-wrap items-center gap-3">
-        <h1 className="text-[clamp(34px,6vw,56px)] font-medium leading-none tracking-[-0.03em]">Hi, {me.name.split(" ")[0]}</h1>
+        <h1 className="text-[clamp(34px,6vw,56px)] font-bold leading-none tracking-[-0.03em]">Hi, {me.name.split(" ")[0]}</h1>
         {isAdmin && <Badge tone="warn">Admin</Badge>}
         {me.trustedLender && <Badge tone="good">Trusted lender</Badge>}
       </div>
@@ -62,7 +62,7 @@ export default function Dashboard() {
             role="tab"
             aria-selected={tab === t.id}
             onClick={() => setTab(t.id)}
-            className={`-mb-px border-b px-0 py-3 text-[11px] font-medium uppercase tracking-[0.14em] ${tab === t.id ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"}`}
+            className={`tab -mb-px border-b-2 px-0 py-3 font-medium ${tab === t.id ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"}`}
           >
             {t.label}
           </button>

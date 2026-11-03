@@ -31,7 +31,7 @@ export default function MyListings() {
         ) : tools.length === 0 ? (
           <Empty>You have not listed anything yet.</Empty>
         ) : (
-          <ul className="flex flex-col border-b border-line">
+          <ul className="list flex flex-col border-b border-line">
             {tools.map((tool) => (
               <li key={tool.id} className="flex flex-col gap-3 border-t border-line py-5">
                 {editing === tool.id ? (

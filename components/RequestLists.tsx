@@ -91,7 +91,7 @@ export function MyRequests() {
   return (
     <div className="flex flex-col gap-3">
       <ErrorNote message={error} />
-      <ul className="flex flex-col border-b border-line">
+      <ul className="list flex flex-col border-b border-line">
         {loans.map((loan) => (
           <LoanCard
             key={loan.id}
@@ -129,7 +129,7 @@ export function IncomingRequests() {
   return (
     <div className="flex flex-col gap-3">
       <ErrorNote message={error} />
-      <ul className="flex flex-col border-b border-line">
+      <ul className="list flex flex-col border-b border-line">
         {loans.map((loan) => (
           <LoanCard
             key={loan.id}

@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ConvexClientProvider>
             <header>
               <div className="mx-auto flex w-full max-w-5xl items-baseline justify-between gap-4 px-5 py-6">
-                <Link href="/" className="text-[11px] font-medium uppercase tracking-[0.14em]">
+                <Link href="/" className="text-base font-bold tracking-tight">
                   LendLoop
                 </Link>
                 <nav className="flex items-center gap-6">

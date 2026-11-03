@@ -32,7 +32,7 @@ export default function AdminPanel() {
         {users === undefined ? (
           <p className="text-sm text-muted">Loading…</p>
         ) : (
-          <ul className="flex flex-col border-b border-line">
+          <ul className="list flex flex-col border-b border-line">
             {users.map((u) => (
               <li key={u.id} className="flex items-center justify-between gap-3 border-t border-line py-3">
                 <span className="flex items-center gap-2">

@@ -16,17 +16,12 @@ export default function BrowseTools({ isAdmin }: { isAdmin: boolean }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="max-w-xs">
-        <Field label="Category">
-          <select className={inputClass} value={category} onChange={(e) => setCategory(e.target.value as Category | "")}>
-            <option value="">All categories</option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-        </Field>
+      <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
+        {(["", ...CATEGORIES] as const).map((c) => (
+          <button key={c || "all"} type="button" aria-pressed={category === c} onClick={() => setCategory(c)} className="chip">
+            {c || "All"}
+          </button>
+        ))}
       </div>
 
       {tools === undefined ? (
@@ -34,7 +29,7 @@ export default function BrowseTools({ isAdmin }: { isAdmin: boolean }) {
       ) : tools.length === 0 ? (
         <Empty>No tools here yet.</Empty>
       ) : (
-        <ul className="flex flex-col border-b border-line">
+        <ul className="list flex flex-col border-b border-line">
           {tools.map((tool) => (
             <ToolCard key={tool.id} tool={tool} isAdmin={isAdmin} />
           ))}
